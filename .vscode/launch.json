@@ -1,0 +1,47 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch GraphExplore",
+            "request": "launch",
+            "mainClass": "GraphExplore",
+            "projectName": "javaproj1_989e84b2"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch main1",
+            "request": "launch",
+            "mainClass": "main1",
+            "projectName": "javaproj1_989e84b2"
+        },
+        {
+            "type": "java",
+            "name": "Launch temp",
+            "request": "launch",
+            "mainClass": "temp",
+            "projectName": "javaproj1_989e84b2"
+        },
+        {
+            "type": "java",
+            "name": "Launch chanch",
+            "request": "launch",
+            "mainClass": "chanch"
+        },
+        {
+            "type": "java",
+            "name": "Launch stringssort",
+            "request": "launch",
+            "mainClass": "stringssort"
+        }
+    ]
+}
