@@ -9,7 +9,30 @@ import java.lang.Exception;
 class main1{
     
     public static void main(String[] main) throws FileNotFoundException, InterruptedException{
-        File file = new File("./file.txt");
+
+        int check=1;
+        Scanner sc = new Scanner(System.in);
+
+
+          
+
+ Download input = new Download();
+        String p;
+        while(check==1)
+        {  
+
+        try        
+{
+    Thread.sleep(20000);
+} 
+catch(InterruptedException ex) 
+{
+    Thread.currentThread().interrupt();
+}
+       p = input.inp();
+
+
+        File file = new File(p);
         Scanner inputScanner = new Scanner(file);
         TakesInputFromFile dataset1 = new TakesInputFromFile(inputScanner);
         while(inputScanner.hasNext()){
@@ -17,13 +40,28 @@ class main1{
             dataset1.nextSlines();
             dataset1.nextVlines();
             dataset1.getvals();
+            
        }
-       inputScanner.close();
+       
 
-      
-      
-       return;
-    }
+      System.out.println("Do you want to continue ? (0/1)");
+
+
+      check = sc.nextInt();
+
+      if(check==0)
+      {
+          System.exit(0);
+      }
+
+    
+      inputScanner.close();
+       //return;
+    }    
+
+   sc.close();
+
+}
 }
 
 class P {
@@ -246,6 +284,12 @@ class OutPutFile
     public ArrayList<IntersectionSchedule> intersectionSchedules = new ArrayList<IntersectionSchedule>();
 
     public HashMap<Integer,ArrayList<Street>> pathsvtime = new HashMap<Integer,ArrayList<Street>>();
+
+    public HashMap<Street,ArrayList<Integer>> streetvtime = new HashMap<Street,ArrayList<Integer>>();
+
+   public HashMap<Integer,Integer> incomingStreets = new HashMap<Integer,Integer>();
+
+   public ArrayList<P> incStreets = new ArrayList<P>();
   
 
     public void noIntersections(HashMap< Integer, ArrayList<String>> map1, ArrayList<Street> st)
@@ -361,7 +405,7 @@ class OutPutFile
         int ncars;
        HashMap<Street,ArrayList<Integer>> streetvtime = new HashMap<Street,ArrayList<Integer>>();
 
-      //  HashMap<Integer,ArrayList<Street>> pathsvtime = new HashMap<Integer,ArrayList<Street>>();
+       HashMap<Integer,ArrayList<Street>> pathsvtime = new HashMap<Integer,ArrayList<Street>>();
 
         for(Street s1: streets)
         {
@@ -606,9 +650,9 @@ return streetvtime;
 
         
        
-        HashMap<Integer,Integer> incomingStreets = new HashMap<Integer,Integer>();
+       // HashMap<Integer,Integer> incomingStreets = new HashMap<Integer,Integer>();
 
-     ArrayList<P> incStreets = new ArrayList<P>();
+     //ArrayList<P> incStreets = new ArrayList<P>();
 
         for(Street s : streets)
         {
@@ -661,6 +705,11 @@ return streetvtime;
     System.out.println("\n\nIntersection No. :- " +j.val1+"    "+"No. of Incoming Streets :- "+j.val2);
 }
 
+for(int l : incomingStreets.keySet())
+{
+    System.out.println("\n"+l+" " +incomingStreets.get(l));
+}
+
 
 for(P k: incStreets)
 {
@@ -695,8 +744,9 @@ for(IntersectionSchedule it : intersectionSchedules)
     System.out.println("\n\n");
 }
 
-Output output = new Output(pathsvtime);
-       output.output();
+Output output = new Output(pathsvtime,streetvtime,intersectionSchedules);
+
+  //output.output();
  
 return incStreets;
 
@@ -726,16 +776,16 @@ return incStreets;
         {
             String s1 = Integer.toString(st.intStart);
             String s2 = Integer.toString(st.intEnd);
-            graph.addEdge(s1+s2,s1,s2);
+            graph.addEdge(s1+s2,s1,s2,true);
             Edge e = graph.getEdge(s1+s2);
             e.setAttribute("ui.label", st.StreetId);
-            e.setAttribute("ui.style", "text-size: 23px;  shape: cubic-curve; shadow-mode: plain; shadow-width: 2px; shadow-color: #999; shadow-offset: 0.5px, -0.5px; ");
+            e.setAttribute("ui.style", "text-size: 29px;  shape: cubic-curve;  arrow-shape: arrow; arrow-size: 10px, 10px; ");
         }
         
         for (Node node : graph) {
             node.setAttribute("ui.label", node.getId());
             Node n = graph.getNode(node.getId());
-            n.setAttribute("ui.style", "size: 40px; fill-color: pink; text-size: 30px; shadow-mode: plain; shadow-width: 0px; shadow-color: #999; shadow-offset: 4px, -4px; shape: box;");
+            n.setAttribute("ui.style", "size: 45px; fill-color: pink; text-size: 40px; shadow-mode: plain; shadow-width: 0px; shadow-color: #999; shadow-offset: 4px, -4px;");
            
         }
 
@@ -780,12 +830,12 @@ return incStreets;
 
             if(mp.get(sr).get(i)==1)
             {
-                e1.setAttribute("ui.style", "fill-color: green ; text-size: 23px;   shape: cubic-curve;   size: 1.5px; shadow-mode: plain; shadow-width: 2px; shadow-color: #999; shadow-offset: 0.5px, -0.5px;");
+                e1.setAttribute("ui.style", "fill-color: green ; text-size: 29px;   shape: cubic-curve;   size: 2px;  arrow-shape: arrow; arrow-size: 10px, 10px; ");
                 System.out.println(st1.StreetId+"  GREEN");
             }
             else if(mp.get(sr).get(i)==0)
             {
-                e1.setAttribute("ui.style", "fill-color: red; text-size: 23px;   shape: cubic-curve;   size: 3.2px; shadow-mode: plain; shadow-width: 2px; shadow-color: #999; shadow-offset: 0.5px, -0.5px; ");
+                e1.setAttribute("ui.style", "fill-color: red; text-size: 29px;   shape: cubic-curve;   size: 4.2px;  arrow-shape: arrow; arrow-size: 10px, 10px;  ");
                 System.out.println(st1.StreetId+"  RED");
             }
 
